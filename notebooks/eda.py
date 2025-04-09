@@ -1,14 +1,16 @@
 import sys
 import os
 
-# Adiciona a raiz do projeto ao sys.path antes de importar bruto.py
+# Adiciona o diretório raiz do projeto ao path
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
+
 
 import seaborn as sb
 import matplotlib.pyplot as plt
-from data.bruto import dados
+from data.dados import load_data 
 from sklearn.preprocessing import LabelEncoder
 
+dados = load_data()
 print(dados.describe())
 print(dados.head())
 print(dados.shape)
