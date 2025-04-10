@@ -9,6 +9,8 @@ from notebooks.eda import *
 from notebooks.preprocessamento import *
 from sklearn.model_selection import cross_val_score
 
+
+
 modelo = XGBClassifier(objective='binary:logistic',  # Classificação binária
     eval_metric='logloss',            # Métrica de avaliação
     n_estimators=400,             # Número de árvores
@@ -27,3 +29,9 @@ results = cross_val_score(modelo, x_train, y_train, cv=5)
 print(f'Cross Validation: {results}')
 
 modelo.fit(x_train, y_train)
+
+
+
+# # Salva o modelo treinado
+# joblib.dump(modelo, "modelo_diabetes.pkl")
+

@@ -54,4 +54,8 @@ top_five = correlacoes.sort_values(ascending=False).head(5)
 print(f'top 5: {top_five}')
 top_five = correlacoes.sort_values(ascending=False).head(5).index.tolist()
 
+#Verificar quais generos possuem na tabela gender.
+outros = dados['gender'].unique()
+print(f'Quais Generos possuem: {outros}')
+
 
