@@ -1,9 +1,3 @@
-import sys
-import os
-
-# Adiciona o diretório raiz do projeto ao path
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
-
 from xgboost import XGBClassifier
 from notebooks.eda import *
 from notebooks.preprocessamento import *

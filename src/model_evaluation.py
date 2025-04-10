@@ -1,9 +1,3 @@
-import sys
-import os
-
-# Adiciona o diretório raiz do projeto ao path
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
-
 from sklearn.metrics import classification_report,confusion_matrix, average_precision_score
 from notebooks.preprocessamento import *
 from predict import *

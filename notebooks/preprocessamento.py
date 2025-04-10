@@ -1,16 +1,9 @@
-import sys
-import os
-
-# Adiciona o diretório raiz do projeto ao path
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
-
 from data.dados import *
 from notebooks.eda import *
 from imblearn.over_sampling import SMOTE
 from imblearn.pipeline import Pipeline
 from imblearn.under_sampling import RandomUnderSampler
 from sklearn.model_selection import train_test_split
-
 
 
 previsores = dados_codificados.iloc[:,0:8].values

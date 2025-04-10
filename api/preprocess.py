@@ -1,7 +1,7 @@
 import numpy as np
 
-gender_map = {'Male': 0, 'Female': 1}
-smoking_map = {'never': 0, 'former': 1, 'current': 2, 'unknown': 3, 'other': 4}
+gender_map = {'Female': 0, 'Male': 1, 'Other': 2}
+smoking_map = {'never': 0, 'former': 1, 'current': 2, 'not current': 3, 'No Info': 4}
 
 def preprocess_input(data_dict):
     data_dict['gender'] = gender_map.get(data_dict['gender'], 2)

@@ -1,8 +1,8 @@
-import sys
-import os
+# import sys
+# import os
 
-# Adiciona o diretório raiz do projeto ao path
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
+# # Adiciona o diretório raiz do projeto ao path
+# sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 
 
 import seaborn as sb
