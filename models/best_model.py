@@ -1,9 +1,3 @@
-# Importações principais
-import os
-import sys
-# Adiciona o diretório raiz do projeto ao path
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
-
 import joblib
 from xgboost import XGBClassifier
 from imblearn.pipeline import Pipeline
