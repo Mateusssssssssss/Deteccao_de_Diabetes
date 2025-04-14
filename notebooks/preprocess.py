@@ -1,15 +1,18 @@
-from data.dados import *
-from notebooks.eda import *
 from imblearn.over_sampling import SMOTE
 from imblearn.pipeline import Pipeline
 from imblearn.under_sampling import RandomUnderSampler
 from sklearn.model_selection import train_test_split
 
+from data.dados import *
+from notebooks.eda import *
 
-previsores = dados_codificados.iloc[:,0:8].values
+previsores = dados_codificados.iloc[:, 0:8].values
 classes = dados.iloc[:, 8].values
 
-def pipeline_balanceamento(previsores, classes, undersample_ratio=0.1, oversample_ratio=0.5):
+
+def pipeline_balanceamento(
+    previsores, classes, undersample_ratio=0.1, oversample_ratio=0.6
+):
     """
     Aplica um pipeline de balanceamento com RandomUnderSampler e SMOTE.
 
@@ -38,9 +41,11 @@ def pipeline_balanceamento(previsores, classes, undersample_ratio=0.1, oversampl
     return pipeline.fit_resample(previsores, classes)
 
 
-#Balanceamento dos dados
+# Balanceamento dos dados
 previsores, classes = pipeline_balanceamento(previsores, classes)
 
 # Divisão dos dados em treino e teste
 # 60% treino e 40% teste
-x_train, x_test, y_train, y_test = train_test_split(previsores, classes, test_size=0.4, random_state=1)
+x_train, x_test, y_train, y_test = train_test_split(
+    previsores, classes, test_size=0.4, random_state=1
+)

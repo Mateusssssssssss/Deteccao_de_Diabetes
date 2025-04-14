@@ -1,0 +1,19 @@
+version: "3.9"
+
+services:
+  api:
+    build: . # Aqui é o ponto para indicar que o Dockerfile está na raiz do projeto
+    ports:
+      - "8000:8000"
+    depends_on:
+      - mlflow
+    environment:
+      - MLFLOW_TRACKING_URI=http://mlflow:5000
+
+  mlflow:
+    image: ghcr.io/mlflow/mlflow
+    command: mlflow server --host 0.0.0.0 --port 5000 --backend-store-uri /mlflow/mlruns
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./mlruns:/mlflow/mlruns

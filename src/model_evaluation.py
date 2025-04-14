@@ -1,6 +1,9 @@
-from sklearn.metrics import classification_report,confusion_matrix, average_precision_score
-from notebooks.preprocessamento import *
+from sklearn.metrics import (average_precision_score, classification_report,
+                             confusion_matrix)
+
+from notebooks.preprocess import *
 from predict import *
+
 
 def metricas(y_true, y_pred):
     """

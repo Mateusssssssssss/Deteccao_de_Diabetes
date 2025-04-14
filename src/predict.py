@@ -1,4 +1,4 @@
-from model_training import * 
+from model_training import *
 
 #Previsao
 previsao = modelo.predict_proba(x_test)[:, 1]

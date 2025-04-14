@@ -167,3 +167,172 @@ uvicorn main:app --reload
 
 
 
+# Docker para Projetos Python
+
+Este README fornece os comandos e passos essenciais para rodar e construir um projeto Python utilizando Docker.
+
+## Requisitos
+
+- Docker instalado na sua máquina.
+- Um projeto Python com todos os arquivos necessários, como `Dockerfile`, `requirements.txt`, etc.
+
+## Passos para usar o Docker
+
+### 1. Criar o arquivo `Dockerfile`
+
+Crie um arquivo chamado `Dockerfile` na raiz do seu projeto. Este arquivo contém as instruções para o Docker construir a imagem do seu projeto. Aqui está um exemplo básico:
+
+```Dockerfile
+# Use uma imagem base do Python
+FROM python:3.12-slim
+
+# Atualiza os pacotes do sistema e instala dependências do sistema
+RUN apt-get update && apt-get install -y \ 
+    gcc \ 
+    libffi-dev \ 
+    musl-dev \ 
+    build-essential \ 
+    && rm -rf /var/lib/apt/lists/*
+
+# Instala o setuptools e wheel
+RUN pip install --no-cache-dir setuptools wheel
+
+# Copia os arquivos do projeto para o container
+COPY . /app
+
+# Define o diretório de trabalho dentro do container
+WORKDIR /app
+
+# Instala as dependências do projeto
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Expõe a porta que a aplicação usará
+EXPOSE 8000
+
+# Comando para rodar a API ou aplicação
+CMD ["uvicorn", "api.main:app", "--host", "0.0.0.0", "--port", "8000"]
+```
+
+### 2. Criar o arquivo `requirements.txt`
+
+Crie um arquivo `requirements.txt` com todas as dependências do seu projeto, por exemplo:
+
+```
+fastapi
+uvicorn
+numpy
+pandas
+scikit-learn
+```
+
+### 3. Construir a Imagem Docker
+
+No terminal, vá até a pasta onde o `Dockerfile` está localizado e execute o seguinte comando para construir a imagem Docker:
+
+```bash
+docker build -t nome-da-imagem .
+```
+
+### 4. Rodar o Container
+
+Depois de construir a imagem, você pode rodar um container com o comando:
+
+```bash
+docker run -p 8000:8000 nome-da-imagem
+```
+
+Isso vai rodar o seu container e expor a aplicação na porta 8000. Você pode acessar a API ou aplicação pelo navegador em `http://localhost:8000`.
+
+### 5. Parar o Container
+
+Para parar o container, use o seguinte comando:
+
+```bash
+docker stop nome-do-container
+```
+
+Onde `nome-do-container` é o nome ou ID do seu container (você pode pegar o ID com `docker ps`).
+
+### 6. Remover a Imagem
+
+Se você quiser remover a imagem após o uso, execute:
+
+```bash
+docker rmi nome-da-imagem
+```
+
+---
+
+Esse é um exemplo básico de como configurar e rodar seu projeto Python no Docker. Você pode personalizar os comandos conforme a necessidade do seu projeto!
+
+
+
+
+# Projeto com Docker Compose para API e MLflow
+
+Este projeto utiliza o **Docker Compose** para rodar uma **API** de previsão de diabetes e o **MLflow** para o gerenciamento de experimentos e métricas do modelo de Machine Learning.
+
+## Estrutura do Projeto
+
+- **api**: Contém a API criada com **FastAPI** para previsão de diabetes.
+- **mlflow**: Executa o servidor **MLflow** para rastrear e visualizar métricas de treinamento de modelos.
+
+## Docker Compose
+
+O **Docker Compose** é utilizado para orquestrar os containers da **API** e do **MLflow**, permitindo que ambos sejam executados em conjunto em um ambiente controlado.
+
+## Como Rodar o Projeto
+
+### Requisitos
+
+- **Docker** instalado
+- **Docker Compose** instalado
+
+### Passos para Rodar
+
+1. Clone o repositório:
+
+```bash
+git clone <URL_DO_REPOSITORIO>
+cd <NOME_DO_REPOSITORIO>
+```
+
+2. Certifique-se de que você tem o arquivo **Dockerfile** e o **docker-compose.yml** na raiz do projeto.
+
+3. Para rodar os containers com o Docker Compose, use o seguinte comando:
+
+```bash
+docker-compose up --build
+```
+
+- O comando `--build` garante que os containers serão construídos antes de serem executados.
+- O **FastAPI** será acessível na porta `8000`.
+- O **MLflow** será acessível na porta `5000`.
+
+### O que Acontece Durante o Processo
+
+- O **Docker Compose** irá criar e iniciar dois serviços:
+  - **api**: A API FastAPI que faz previsões de diabetes. Ela depende do serviço **mlflow**.
+  - **mlflow**: O servidor MLflow que irá rastrear e exibir as métricas dos experimentos.
+
+### Acessos
+
+- **API**: A API FastAPI estará disponível em `http://localhost:8000`.
+- **MLflow**: O servidor MLflow estará disponível em `http://localhost:5000`.
+
+### Parar os Containers
+
+Para parar e remover os containers em execução, use o comando:
+
+```bash
+docker-compose down
+```
+
+Isso irá parar os serviços e limpar os containers, redes e volumes associados.
+
+
+### Para rodar os containers novamente, basta usar o comando:
+
+```bash
+docker-compose up
+```

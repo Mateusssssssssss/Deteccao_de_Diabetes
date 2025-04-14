@@ -1,21 +1,19 @@
+from sklearn.model_selection import cross_val_score
 from xgboost import XGBClassifier
 from notebooks.eda import *
-from notebooks.preprocessamento import *
-from sklearn.model_selection import cross_val_score
-
-
+from notebooks.preprocess import *
 
 modelo = XGBClassifier(objective='binary:logistic',  # Classificação binária
     eval_metric='logloss',            # Métrica de avaliação
-    n_estimators=400,             # Número de árvores
+    n_estimators=500,             # Número de árvores
     learning_rate=0.05,           # Taxa de aprendizado
-    max_depth=15,                  # Profundidade das árvores
+    max_depth=20,                  # Profundidade das árvores
     subsample=0.5,                # Amostragem para evitar overfitting
-    colsample_bytree=0.5,         # Porcentagem de colunas usadas
+    colsample_bytree=0.7,         # Porcentagem de colunas usadas
     gamma=1,                      # Evita overfitting
     reg_lambda=0,                 # Regularização L2
     reg_alpha=1,                   # Regularização L1
-    scale_pos_weight=15,             # dá mais peso para a classe minoritária
+    scale_pos_weight=30,             # dá mais peso para a classe minoritária
 )
 
 #Validação cruzada

@@ -12,3 +12,4 @@ class InputData(BaseModel):
     bmi: float
     HbA1c_level: float
     blood_glucose_level: float
+    
