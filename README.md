@@ -336,3 +336,69 @@ Isso irá parar os serviços e limpar os containers, redes e volumes associados.
 ```bash
 docker-compose up
 ```
+
+
+
+
+# Publicando a Imagem Docker no Docker Hub
+
+Este passo a passo mostra como você pode **autenticar, taguear e enviar sua imagem Docker para o Docker Hub**, deixando ela pronta para ser usada em ambientes como o Azure App Service.
+
+---
+
+## Verificando suas imagens locais
+
+Antes de taguear ou enviar qualquer imagem, veja quais imagens já estão disponíveis localmente:
+
+```bash
+docker image 
+```
+
+📌 Esse comando mostra uma lista com o **REPOSITORY** (nome), **TAG** e **IMAGE ID** das imagens que você criou ou puxou.
+
+---
+
+## 1. Autenticação no Docker Hub
+
+Antes de publicar a imagem, você precisa estar autenticado no Docker Hub.
+
+```bash
+docker login
+```
+
+🔸 Esse comando solicitará seu **nome de usuário** e **senha do Docker Hub**.  
+🔸 Após o login bem-sucedido, você poderá interagir com seu repositório remoto (push/pull).
+
+---
+
+## 2. Taguear sua imagem local
+
+Vamos dar um "rótulo" (tag) à imagem local para que ela aponte para o seu repositório no Docker Hub. O formato é:
+
+```bash
+docker tag <nome_local> <usuario_dockerhub>/<nome_imagem>:<tag>
+```
+
+Exemplo:
+
+```bash
+docker tag diabetes-api username/diabetes-api:latest
+```
+
+Aqui, `diabetes-api` é o nome da sua imagem local,  
+`username` é seu usuário no Docker Hub,  
+`latest` é a tag (versão da imagem — pode ser `v1`, `prod`, etc).
+
+---
+
+## 3. Enviando (push) a imagem para o Docker Hub
+
+Com a imagem corretamente tagueada, execute:
+
+```bash
+docker push mateusgab/diabetes-api:latest
+```
+
+Isso enviará sua imagem para o repositório `username/diabetes-api` no Docker Hub.
+
+Após o push ser concluído, sua imagem estará disponível publicamente (ou privada, se configurado assim) no seu repositório.
